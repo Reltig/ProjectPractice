@@ -53,7 +53,6 @@ partial class UploadedForm
         label1.Name = "label1";
         label1.Size = new Size(0, 20);
         label1.TabIndex = 1;
-        label1.Click += label1_Click;
         // 
         // pictureBox1
         // 
@@ -110,7 +109,6 @@ partial class UploadedForm
         Name = "UploadedForm";
         Text = "Detector";
         FormClosed += Form1_FormClosed;
-        Load += Form1_Load;
         ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
         ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
         ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();

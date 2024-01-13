@@ -11,17 +11,21 @@ public partial class HistoryForm : Form
     public HistoryForm()
     {
         InitializeComponent();
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
     }
 
     public HistoryForm(Form mainForm)
     {
         this.mainForm = mainForm;
         InitializeComponent();
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
     }
 
     private void HistoryFrom_Loaded(object sender, EventArgs e)
     {
-        var request = HttpWebRequest.Create("http://localhost:8000/history");
+        var request = HttpWebRequest.Create($"http://{GlobalCongif.Ip}:{GlobalCongif.Port}/history");
         request.Method = "GET";
         var test = String.Empty;
         using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())

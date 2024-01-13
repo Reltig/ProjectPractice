@@ -14,6 +14,8 @@ public partial class UploadedForm : Form
     public UploadedForm()
     {
         InitializeComponent();
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
     }
 
     public UploadedForm(Form mainForm)
@@ -21,6 +23,8 @@ public partial class UploadedForm : Form
         InitializeComponent();
         this.mainForm = mainForm;
         UploadPicture();
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
     }
 
     private async void button1_Click(object sender, EventArgs e)
@@ -39,7 +43,7 @@ public partial class UploadedForm : Form
                     .Resize(pictureBox1.Width, pictureBox1.Height);
                 using (WebClient client = new WebClient())
                 {
-                    var res = client.UploadFile("http://localhost:8000/upload", fileName);
+                    var res = client.UploadFile($"http://{GlobalCongif.Ip}:{GlobalCongif.Port}/uploadfile", fileName);
                     var rawJson = System.Text.Encoding.Default.GetString(res);
                     var data = JsonSerializer.Deserialize<DTO>(rawJson);
                     richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
@@ -55,23 +59,8 @@ public partial class UploadedForm : Form
         mainForm.Show();
     }
 
-    private void label1_Click(object sender, EventArgs e)
-    {
-
-    }
-
     private void button2_Click(object sender, EventArgs e)
     {
         Close();
-    }
-
-    private void Form1_Load(object sender, EventArgs e)
-    {
-
-    }
-
-    private void pictureBox2_Click(object sender, EventArgs e)
-    {
-
     }
 }

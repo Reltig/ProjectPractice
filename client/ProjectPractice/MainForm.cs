@@ -10,16 +10,13 @@ public partial class MainForm : Form
     public MainForm()
     {
         InitializeComponent();
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
     }
 
     private void button2_Click(object sender, EventArgs e)
     {
         this.Close();
-    }
-
-    private void MainForm_Load(object sender, EventArgs e)
-    {
-
     }
 
     private void upload_Click(object sender, EventArgs e)

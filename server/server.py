@@ -7,14 +7,12 @@ from datetime import datetime
 
 from fastapi import FastAPI, File, UploadFile
 
-map = ["Щавель", "Амарант"]
+map = ["Амарант", "Щавель"]
 history = []
 
 app = FastAPI()
 
-net = models.resnet34()
-net.fc = torch.nn.Linear(512, 2) #TODO: заменить
-net.load_state_dict(torch.load("model3.pt"))
+net = torch.load("full_model.pt")
 
 def transform(img):
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],

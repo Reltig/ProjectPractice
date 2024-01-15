@@ -13,6 +13,9 @@ history = []
 app = FastAPI()
 
 net = torch.load("full_model.pt")
+# net = models.resnet34()
+# net.fc = torch.nn.Linear(512, 2) #TODO: заменить
+# net.load_state_dict(torch.load("model3.pt"))
 
 def transform(img):
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -32,7 +35,13 @@ async def create_upload_file(file: UploadFile):
     batch = torch.stack([tensor])
     output = net(batch)
     predicted = output.argmax().item()
-    result = {"date": datetime.now().strftime("%Y/%m/%d %H:%M:%S"), "name": map[predicted], "accuracy": 88, "density": 8, "mode": 8}
+    confidence = int(100 * torch.nn.Softmax()(output)[0][predicted])
+    result = {\
+    "date": datetime.now().strftime("%Y/%m/%d %H:%M:%S"), \
+    "name": map[predicted], \
+    "accuracy": confidence, \
+    "density": 8, \
+    "mode": 8}
     history.append(result)
     return result
 
@@ -40,4 +49,4 @@ async def create_upload_file(file: UploadFile):
 async def get_history():
     return history
 
-# uvicorn main:app --host 0.0.0.0 --port 8000
+# uvicorn server:app --host 0.0.0.0 --port 8000
